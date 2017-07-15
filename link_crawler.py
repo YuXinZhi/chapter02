@@ -1,6 +1,7 @@
 import re
 import urllib.request
 import urllib.parse
+import urllib.error
 from datetime import datetime
 import time
 import urllib.robotparser
@@ -71,7 +72,7 @@ class Throttle(object):
         '''
         domain = urllib.parse.urlsplit(url).netloc
         last_accessed = self.domains.get(domain)
-        if self.delay > 0:
+        if self.delay > 0 and last_accessed is not None:
             sleep_secs = self.delay - (datetime.now() - last_accessed).seconds
             if sleep_secs > 0:
                 time.sleep(sleep_secs)
@@ -131,5 +132,5 @@ def same_domain(url1,url2):
     return urllib.parse.urlparse(url1).netloc == urllib.parse.urlparse(url2).netloc
 
 if __name__ == '__main__':
-    link_crawler('http://example.webscraping.com/places','/(index|view)',delay=0,num_retries=1,user_agent='BadCrawler')
-    link_crawler('http://example.webscraping.com','/(index|view)',delay=0,num_retries=1,max_depth=1,user_agent='GoodCrawler')
+    link_crawler('http://example.webscraping.com/places/default','/(index|view)',delay=0,num_retries=1,user_agent='BadCrawler')
+    link_crawler('http://example.webscraping.com/places/default','/(index|view)',delay=0,num_retries=1,max_depth=1,user_agent='GoodCrawler')
