@@ -14,7 +14,7 @@ class ScrapeCallback:
     def __call__(self, url, html):
         print('call')
         soup = BeautifulSoup(html, 'html.parser')
-        print(soup.prettify())
+        #print(soup.prettify())
 
 
         if re.search('/view/',url):
@@ -26,4 +26,4 @@ class ScrapeCallback:
             self.writer.writerow(row)
 
 if __name__ == '__main__':
-    link_crawler('http://example.webscraping.com/', '/(index|view)',max_depth=-1, scrape_callback=ScrapeCallback())
+    link_crawler('http://example.webscraping.com', '/(index|places/default/view)',max_depth=-1, scrape_callback=ScrapeCallback())

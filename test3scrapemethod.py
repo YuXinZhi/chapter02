@@ -30,6 +30,8 @@ import time
 
 NUM_ITERARIONS = 1000 #number of times to test each scraper
 html = download.download('http://example.webscraping.com/places/default/view/United-Kingdom-239')
+#soup = BeautifulSoup(html,'html.parser')
+#print(soup.prettify())
 for name,scraper in [('Regular expressions',re_scraper),('BeautifulSoup',bs_scraper),('Lxml',lxml_scraper)]:
     #record start time of scrape
     start = time.time()
